@@ -1,0 +1,8 @@
+.pagination .text-total-records{width:50%; float: left;}
+.pagination .pages{float:right; width:50%; padding: 0; margin:0; text-align: right;}
+.pagination .pages li{display:inline-block;  padding:0; margin:0;list-style-type: none;}
+.pagination .pages li div{ margin:0 10px; }
+
+.pagination .pages li button{ background:#fff; border:1px solid #ddd; border-radius: 0; padding:3px 10px;}
+.pagination .pages li.active button{background:#007bff; color:#fff;}
+.pagination .pages li button:hover{background:#5f9bdc;}

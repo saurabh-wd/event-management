@@ -1,0 +1,17 @@
+.btn-grid-view, .btn-list-view{font-size:30px; color:#76adce;}
+
+
+
+.list-view ul{margin: 0px; padding: 0; }
+.list-view ul li{margin: 5px; padding: 0; list-style-type: none; width:300px; display: inline-block; border: 1px solid #ddd;}
+.list-view ul li:first-child{margin-left: 0;}
+.list-view ul li:last-child{margin-right: 0;}
+.list-view ul li table{width:100%;}
+.list-view ul li table td{padding:10px;}
+.list-view ul li .event-header{background: #007bff; padding:3px; color:#fff;}
+.list-view ul li .event-header .action-buttons{float:right;}
+.list-view ul li .event-header a, .list-view ul li .event-header .btn{color: #fff; padding:0; transition: all 1s;}
+.list-view ul li .event-header a:hover{color: orangered; }
+.list-view ul li .event-header button.btn:hover{color:#32f180;}
+
+th.pointer:hover{color: #007bff;}

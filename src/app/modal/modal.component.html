@@ -1,0 +1,14 @@
+  <div class="commonModal" *ngIf="showModal">
+    <div class="modalMain" draggable="true">
+      <div class="modalHeader">
+        <div class="title"><ng-content select=".modal-title"></ng-content></div>
+        <a href="" class="close" (click)="closeModal($event)">Close</a>
+      </div>
+      <div class="modalContent">
+          <div class="modalBody"><ng-content select=".modal-body"></ng-content></div>        
+      </div>
+      <div class="modalFooter"><ng-content select=".footer"></ng-content></div>
+    </div>
+    <div class="modalOverlay"></div>
+  </div>
+

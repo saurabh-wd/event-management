@@ -1,0 +1,23 @@
+<div class="pagination">
+
+  <div class="text-total-records" *ngIf="totalRecords > 0">Showing {{showingFrom()}} to {{showingTo()}} of total
+    {{totalRecords}} records</div>
+  <ul class="pages" *ngIf="getPages().length > 1">
+
+    <li *ngFor="let pageNum of getPages()" [ngClass]="{'active': this.currentPage == pageNum}">
+      <div *ngIf="pageNum == (this.currentPage - showBtnBeforeAcitve - 1) && (this.currentPage - showBtnBeforeAcitve - 1) > 1  ">...</div>
+      <div *ngIf="pageNum == (this.currentPage + showBtnAfterAcitve + 1) && (this.currentPage + showBtnAfterAcitve + 1) <  getPages().length">...</div>
+      <div *ngIf="
+           pageNum  == 1
+        || pageNum  == getPages().length
+        || (
+                pageNum >= (this.currentPage - showBtnBeforeAcitve)    
+            &&  pageNum <= (this.currentPage + showBtnAfterAcitve)
+            )
+      ">
+        <button (click)="paginate(pageNum)">{{pageNum}}</button>
+      </div>
+    </li>
+  </ul>
+
+</div>

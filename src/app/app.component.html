@@ -1,0 +1,35 @@
+<div class="container-inner {{theme}}" [class.menu-showing]="isMenuShowing">
+  <!--<div class="bird-container bird-container--one">
+    <div class="bird bird--one"></div>
+  </div>
+
+  <div class="bird-container bird-container--two">
+    <div class="bird bird--two"></div>
+  </div>-->
+
+  <!-- <div class="bird-container bird-container--three">
+    <div class="bird bird--three"></div>
+  </div>
+
+  <div class="bird-container bird-container--four">
+    <div class="bird bird--four"></div>
+  </div> -->
+
+  <a (click)="showHideMenu()">
+    <div class="nav-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </a>
+  <div class="primary-nav" [class.menu-showing]="isMenuShowing">
+    <nav>
+      <ul>
+        <li><a routerLink='/list-events' routerLinkActive="list-events" (click)="isMenuShowing = false;">Event List</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="main" (click)="isMenuShowing = false; $event.stopPropagation();">
+    <router-outlet></router-outlet>
+  </div>
+</div>

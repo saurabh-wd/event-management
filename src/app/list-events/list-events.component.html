@@ -1,0 +1,116 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div>
+  <br />
+  <h3>Events</h3>
+
+  <div [innerHTML]="message"></div>
+
+
+  <div class="text-right clearfix">
+    <button type="button" class="btn btn-default btn-list-view" (click)="switchView()" *ngIf="currentView == 'list'"><i
+        class="fa fa fa-list-ul" aria-hidden="true"></i></button>
+    <button type="button" class="btn btn-default btn-grid-view" (click)="switchView()" *ngIf="currentView == 'grid'"><i
+        class="fa fa-th-large" aria-hidden="true"></i></button>&nbsp;&nbsp;
+
+    <button type="button" class="btn btn-primary"><a routerLink="/add-events" style="color: #fff;">Add Event</a></button>
+    &nbsp;&nbsp;
+    <button type="button" class="btn btn-danger" (click)="bulkDelete()" [disabled]="!selectedCheckboxIds.length">Delete</button>
+    <!--bulkDelete() -->
+  </div>
+
+  <div class="list-view" *ngIf="currentView == 'list'">
+    <table class="table">
+      <thead>
+        <tr>
+          <th><input type="checkbox" (change)="checkAll($event)" /></th>
+          <!--<th class="pointer" (click)="sortColumn('id')">
+                Id <span class="fa" [ngClass]="{'fa-chevron-down': (sortCol == 'id' && sortType == 'desc'), 'fa-chevron-up': (sortCol == 'id' && sortType == 'asc')}"></span>
+            </th>-->
+          <th class="pointer" (click)="sortColumn('name')">
+            Event Name
+            <span class="fa" [ngClass]="{'fa-chevron-down': (sortCol == 'name' && sortType == 'desc'), 'fa-chevron-up': (sortCol == 'name' && sortType == 'asc')}"></span>
+          </th>
+          <th class="pointer" (click)="sortColumn('type')">
+            Type
+            <span class="fa" [ngClass]="{'fa-chevron-down': (sortCol == 'type' && sortType == 'desc'), 'fa-chevron-up': (sortCol == 'type' && sortType == 'asc')}"></span>
+          </th>
+          <th class="pointer" (click)="sortColumn('length')">
+            Length (Mins)
+            <span class="fa" [ngClass]="{'fa-chevron-down': (sortCol == 'length' && sortType == 'desc'), 'fa-chevron-up': (sortCol == 'length' && sortType == 'asc')}"></span>
+          </th>
+          <th class="pointer" (click)="sortColumn('views')">
+            Views
+            <span class="fa" [ngClass]="{'fa-chevron-down': (sortCol == 'views' && sortType == 'desc'), 'fa-chevron-up': (sortCol == 'views' && sortType == 'asc')}"></span>
+          </th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of events">
+          <td><input type="checkbox" (change)="selectCheckbox(event._id, $event)" [(ngModel)]="event.checked" /></td>
+          <!--<td>{{event._id.substr(0, 8)}}</td>-->
+          <td><a routerLink="/update-event/{{event._id}}">{{event.name}}</a></td>
+          <td>{{event.type}}</td>
+          <td>{{event.length}}</td>
+          <td>{{event.views}}</td>
+          <td><a class="btn btn-link" (click)="deleteOne(event)"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+        </tr>
+        <tr *ngIf="!events.length">
+          <td colspan="7" align="center">No event found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="list-view" *ngIf="currentView == 'grid'">
+    <ul>
+      <li *ngFor="let event of events">
+        <table>
+          <tr>
+            <td colspan="2" class="event-header">
+              {{event.name}}
+              <div class="action-buttons">
+                <button class="btn btn-sm btn-link" (click)="deleteOne(event)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                &nbsp;
+                <a routerLink="/update-event/{{event._id}}" class="btn btn-link"><i class="fa fa-pencil-square-o"
+                    aria-hidden="true"></i></a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Id:</td>
+            <td>{{event._id.substr(0, 8)}}</td>
+          </tr>
+          <tr>
+            <td>Name:</td>
+            <td>{{event.name}}</td>
+          </tr>
+          <tr>
+            <td>Type:</td>
+            <td>{{getEventType(event.type)}}</td>
+          </tr>
+          <tr>
+            <td>Length:</td>
+            <td>{{event.length}}</td>
+          </tr>
+          <tr>
+            <td>Views:</td>
+            <td>{{event.views}}</td>
+          </tr>
+        </table>
+      </li>
+    </ul>
+    <div *ngIf="!events.length" class="text-center">No event found</div>
+  </div>
+  <pagination [totalRecords]="totalRecords" [recordsPerPage]="recordPerPage" [currentPage]="pageNo"
+    [showBtnBeforeAcitve]="2" [showBtnAfterAcitve]="2" (doPaginate)="doPaginate($event)"></pagination>
+
+</div>
+<app-modal (modalClose)="deleteCancel($event)" [showModal]="deleteModalShow">
+  <div class="modal-title">Delete Event</div>
+  <div class="modal-body" [innerHTML]="deleteMessage"></div>
+  <div class="footer">
+    <button (click)="deleteConfirm()" class="btn btn-sm btn-danger">Delete</button> &nbsp;
+    <button (click)="deleteCancel()" class="btn btn-sm btn-default">Close</button>
+  </div>
+</app-modal>
